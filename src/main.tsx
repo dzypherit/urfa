@@ -1,7 +1,15 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
-import { ThirdwebProvider } from "@thirdweb-dev/react";
+import { ThirdwebProvider,
+  metamaskWallet,
+  coinbaseWallet,
+  walletConnect,
+  localWallet,
+  embeddedWallet,
+  trustWallet,
+  rainbowWallet,
+  safeWallet, } from "@thirdweb-dev/react";
 import "./styles/globals.css";
 import { Toaster } from "./components/ui/Toaster";
 import { getGasless } from "./utils/getGasless";
@@ -30,7 +38,46 @@ const clientId = urlParams.get("clientId") || clientIdConst || "";
 
 root.render(
   <React.StrictMode>
-    <ThirdwebProvider activeChain={chain} sdkOptions={sdkOptions} clientId={clientId}>
+    <ThirdwebProvider activeChain={chain} sdkOptions={sdkOptions} clientId={clientId} supportedWallets={[
+        metamaskWallet(),
+        coinbaseWallet(),
+        walletConnect(),
+        safeWallet({
+          personalWallets: [
+            metamaskWallet(),
+            coinbaseWallet(),
+            walletConnect(),
+            localWallet(),
+            embeddedWallet({
+              recommended: true,
+              auth: {
+                options: [
+                  "email",
+                  "google",
+                  "apple",
+                  "facebook",
+                ],
+              },
+            }),
+            trustWallet(),
+            rainbowWallet(),
+          ],
+        }),
+        localWallet(),
+        embeddedWallet({
+          recommended: true,
+          auth: {
+            options: [
+              "email",
+              "google",
+              "apple",
+              "facebook",
+            ],
+          },
+        }),
+        trustWallet(),
+        rainbowWallet(),
+      ]}>
       <Toaster />
       <App />
     </ThirdwebProvider>

@@ -35,7 +35,7 @@ export const HeadingImage: React.FC<HeadingImage> = ({
             <MediaRenderer
               src={src}
               width="100%"
-              height="100%"
+              height="500px"
               className="h-full w-full object-cover"
             />
           ) : (

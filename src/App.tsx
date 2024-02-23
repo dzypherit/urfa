@@ -283,23 +283,6 @@ export default function Home() {
     ],
   );
 
-  const clientId = urlParams.get("clientId") || clientIdConst || "";
-  if (!clientId) {
-    return (
-      <div className="flex items-center justify-center h-full">
-        Client ID is required as a query param to use this page.
-      </div>
-    );
-  }
-
-  if (!contractAddress) {
-    return (
-      <div className="flex items-center justify-center h-full">
-        No contract address provided
-      </div>
-    );
-  }
-
   return (
     <div className="w-screen min-h-screen">
       <ConnectWallet className="!absolute !right-4 !top-4" theme={theme} />
